@@ -93,4 +93,5 @@ scale = Vector2( 5.86423, 5.86423 )
 texture = ExtResource( 4 )
 
 [node name="pipes" parent="." instance=ExtResource( 5 )]
+position = Vector2( 810.364, 0 )
 z_index = 2
