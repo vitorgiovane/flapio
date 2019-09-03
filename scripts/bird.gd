@@ -5,4 +5,7 @@ func _ready():
 
 func _input(event):
   if event.is_action_pressed("leftClick"):
-    print("Left click")
+    jump()
+
+func jump():
+	apply_impulse(Vector2(0,0), Vector2(0, -550))
