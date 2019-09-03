@@ -8,4 +8,4 @@ func _input(event):
     jump()
 
 func jump():
-	apply_impulse(Vector2(0,0), Vector2(0, -600))
+	apply_impulse(Vector2(0,0), Vector2(0, -5950))
