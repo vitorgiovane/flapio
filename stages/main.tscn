@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/bird.gd" type="Script" id=1]
 [ext_resource path="res://sprites/01.png" type="Texture" id=2]
 [ext_resource path="res://sprites/02.png" type="Texture" id=3]
 [ext_resource path="res://sprites/platform.png" type="Texture" id=4]
 [ext_resource path="res://components/pipes.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/point.gd" type="Script" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -52,6 +53,7 @@ tracks/1/keys = {
 [node name="Game" type="Node2D"]
 
 [node name="bird" type="RigidBody2D" parent="."]
+editor/display_folded = true
 position = Vector2( 189.352, 179.059 )
 z_index = 2
 mass = 10.0
@@ -78,6 +80,7 @@ position = Vector2( 0, 1150 )
 shape = SubResource( 3 )
 
 [node name="background" type="AnimationPlayer" parent="."]
+editor/display_folded = true
 autoplay = "background"
 anims/background = SubResource( 4 )
 
@@ -92,6 +95,17 @@ position = Vector2( 1481.49, 656.89 )
 scale = Vector2( 5.86423, 5.86423 )
 texture = ExtResource( 4 )
 
-[node name="pipes" parent="." instance=ExtResource( 5 )]
+[node name="PipeMaker" type="Node2D" parent="."]
+
+[node name="pipes" parent="PipeMaker" instance=ExtResource( 5 )]
 position = Vector2( 810.364, 0 )
 z_index = 2
+
+[node name="Timer" type="Timer" parent="PipeMaker"]
+wait_time = 2.0
+autostart = true
+
+[node name="Point" type="Position2D" parent="PipeMaker"]
+position = Vector2( 814.139, 622.884 )
+script = ExtResource( 6 )
+[connection signal="timeout" from="PipeMaker/Timer" to="PipeMaker/Point" method="_on_Timer_timeout"]
