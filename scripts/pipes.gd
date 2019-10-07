@@ -17,3 +17,8 @@ func _on_Area2D_body_entered(body):
 	if body.name == "bird":
 		game.gameOver()
 	pass
+
+
+func _on_scorer_body_entered(body):
+	game.score()
+	pass

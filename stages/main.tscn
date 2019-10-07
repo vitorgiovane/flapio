@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/game.gd" type="Script" id=1]
 [ext_resource path="res://scripts/bird.gd" type="Script" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://sprites/platform.png" type="Texture" id=5]
 [ext_resource path="res://components/pipes.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/pipeGenerator.gd" type="Script" id=7]
+[ext_resource path="res://fonts/BADABB__.TTF" type="DynamicFontData" id=8]
+[ext_resource path="res://sounds/coin.wav" type="AudioStream" id=9]
+[ext_resource path="res://sounds/gameOver.wav" type="AudioStream" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -50,6 +53,10 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1874.49, 656.89 ), Vector2( 1874.49, 656.89 ), Vector2( 1125.92, 656.89 ) ]
 }
+
+[sub_resource type="DynamicFont" id=5]
+size = 100
+font_data = ExtResource( 8 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -99,6 +106,7 @@ scale = Vector2( 5.86423, 5.86423 )
 texture = ExtResource( 5 )
 
 [node name="PipeMaker" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="pipes" parent="PipeMaker" instance=ExtResource( 6 )]
 position = Vector2( 810.364, 0 )
@@ -114,5 +122,32 @@ script = ExtResource( 7 )
 
 [node name="gameOver" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="NodeInterface" type="Node2D" parent="."]
+editor/display_folded = true
+z_index = 6
+
+[node name="Interface" type="Control" parent="NodeInterface"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="NodeInterface/Interface"]
+margin_left = 331.485
+margin_top = 31.755
+margin_right = 379.485
+margin_bottom = 139.755
+custom_fonts/font = SubResource( 5 )
+text = "0"
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="coin" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 9 )
+volume_db = -17.931
+pitch_scale = 1.5
+
+[node name="gameOver" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 10 )
+volume_db = -20.322
 [connection signal="timeout" from="PipeMaker/Timer" to="PipeMaker/Point" method="_on_Timer_timeout"]
 [connection signal="timeout" from="gameOver" to="." method="_on_gameOver_timeout"]
